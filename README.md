@@ -1,7 +1,9 @@
-# PD_Disease_Detection_Project
+# Development of a Speech Application for the Identification of Parkinson’s Disease
 An application that allows users to predict the risk of a patient having Parkinson's Disease based on the analysis of diadochokinesis (DDK) speech data from microphone recordings. Created during the Summer 2023 Erasmus+ Traineeship held at ETSIINF, Universidad Politécnica de Madrid 
 Report: Development of a Speech Application for Parkinson's Disease Identification through Diadochokinetic Speech Analysis
-Executive Summary
+Executive 
+
+# Summary
 
 Parkinson's disease is a prevalent neurodegenerative disorder that can significantly impact an individual's quality of life. Early detection and monitoring of the disease are essential for effective treatment and care. This report outlines the development of a Speech Application for the identification of Parkinson's Disease using Diadochokinetic speech analysis. Diadochokinetic analysis involves assessing an individual's ability to produce rapid, alternating speech sounds, which can reveal subtle changes in speech motor control associated with Parkinson's disease.
 
