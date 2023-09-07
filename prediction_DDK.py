@@ -35,7 +35,6 @@ val_ds = tf.keras.utils.audio_dataset_from_directory(
     output_sequence_length=50000 # 16000 aprox. 1s
     )
 
-
 # Get class labels from the training dataset
 label_names = np.array(train_ds.class_names)
 
@@ -48,7 +47,7 @@ def get_spectrogram(waveform):
     return spectrogram
 
 # Read and preprocess an audio file
-file_name= 'AVPEPUDEAC0001_petaka.wav'  
+file_name= 'AVPEPUDEA0024_petaka_62.wav'     # Name of the audio file to be tested
 audio_file = file_name
 audio_file = tf.io.read_file(str(audio_file))
 audio_file, sample_rate = tf.audio.decode_wav(audio_file, desired_channels=1, desired_samples=50000,)

@@ -31,10 +31,10 @@ np.random.seed(seed)
 # Speech commands + Waveforms (optional)
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-DATASET_PATH = 'data/DDK'
-output_path = 'data/DDK_f'
-out_path_tr = 'data/DDK_f/train'
-out_path_val = 'data/DDK_f/val'
+DATASET_PATH = 'data/DDK'               # Input datapath
+output_path = 'data/DDK_f'              # Output datapath 
+out_path_tr = 'data/DDK_f/train'        # Training datapath
+out_path_val = 'data/DDK_f/val'         # Validation datapath
 data_tr = pathlib.Path(out_path_tr)
 data_val = pathlib.Path(out_path_val)
 
@@ -44,16 +44,12 @@ split_data(DATASET_PATH, output_path, random.randint(1, 1000), (0.8, 0.2))
 # Augmenting the database
 augment_audio_files(output_path, output_path, 10)
 
-# commands = np.array(tf.io.gfile.listdir(str(data_dir)))
-# commands = commands[(commands != 'README.md') & (commands != '.DS_Store')]
-# print('Commands:', commands)
-
 # Create a training dataset using the audio files in the 'data_tr' directory
 train_ds= tf.keras.utils.audio_dataset_from_directory(
     directory=data_tr,
     batch_size=16,
     seed=0,
-    output_sequence_length=32000 # 16000 aprox. 1s
+    output_sequence_length=50000        # 16000 aprox. 1s
     )
 
 # Create a validation dataset using the audio files in the 'data_val' directory
@@ -61,12 +57,12 @@ val_ds = tf.keras.utils.audio_dataset_from_directory(
     directory=data_val,
     batch_size=16,
     seed=0,
-    output_sequence_length=32000 # 16000 aprox. 1s
+    output_sequence_length=50000        # 16000 aprox. 1s
     )
 
 label_names = np.array(train_ds.class_names)
 print()
-print("Label names:", label_names)
+print("Label names:", label_names)      # HC & PD
 
 def squeeze(audio, labels):
     audio = tf.squeeze(audio, axis=-1)
@@ -82,7 +78,7 @@ for example_audio, example_labels in train_ds.take(1):
     print(example_audio.shape)
     print(example_labels.shape)
 
-# Uncommented, use only if you want to visualise audio signals
+# UNCOMMENTED, USE ONLY IF YOU WANT TO VISUALISE AUDIO SIGNALS
 # plt.figure(figsize=(16, 10))
 # rows = 3
 # cols = 1
@@ -193,7 +189,7 @@ with tf.device('/GPU:0'):
                       kernel_regularizer=tf.keras.regularizers.l2(0.001)),
         layers.MaxPooling2D((2, 2)),
         
-        # Flatten the feature maps into a 1D vector + dropout
+        # Flatten the feature maps into a 1D vector + dropout layer to reduce overfitting
         layers.Flatten(),
         layers.Dropout(0.5),
         
@@ -212,7 +208,7 @@ model.summary()
 # Learning Rate decayer 
 def lr_scheduler(epoch, lr):
      decay_rate = 0.1
-     decay_step = 10
+     decay_step = 10                    # No. of EPOCHS
      if epoch % decay_step == 0 and epoch:
          return lr * decay_rate
      return lr
@@ -234,7 +230,7 @@ with tf.device('/GPU:0'):
         callbacks=callbacks
     )
 
-# Uncommented, use only if you want to track loss/val_loss & accuracy/val_accuracy during EPOCHS
+# UNCOMMENTED, USE ONLY IF YOU WANT TO TRACK loss/val_loss & accuracy/val_accuracu DURING EPOCHS
 # metrics = history.history
 # plt.figure(figsize=(16,6))
 # plt.subplot(1,2,1)
@@ -255,6 +251,7 @@ with tf.device('/GPU:0'):
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 # Display a confusion matrix
 # ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 with tf.device('/GPU:0'):
     y_pred = model.predict(test_spectrogram_ds)
     y_pred = tf.argmax(y_pred, axis=1)

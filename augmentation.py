@@ -1,7 +1,7 @@
 # Development of a Speech Application for the Identification of Parkinson's Disease
 # This program works with a database consisting of HC (healthy control) and 
 # PD (Parkinson's disease patient) audio files.
-# The purpose of this file is to enlarge the audio database by using certain variations applied
+# The purpose of this function is to enlarge the audio database by using certain variations applied
 # to the original audio files.
 
 # Import necessary libraries
@@ -26,6 +26,7 @@ def augment_audio_files(input_directory, output_directory, num_iterations):
         PitchShift(min_semitones=-2, max_semitones=3, p=0.3)
     ])
     
+    # Start traversing the directory tree rooted at 'input_directory'
     for root, _, audio_files in os.walk(input_directory):
         for audio_file in audio_files:
             if audio_file.endswith(".wav"):
