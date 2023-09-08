@@ -113,6 +113,10 @@ Also, by using prediction_DDk.py on a separately audio file which was not includ
 
 ![image](https://github.com/stefanosdrive/PD_Disease_Detection_Project/assets/140710587/e3068748-297b-4e03-8c76-5676e2b961cb)
 
+and another example for a file that we know for certain it is of type HC:
+
+![image](https://github.com/stefanosdrive/PD_Detection_Project/assets/140710587/dfe4afb3-84f0-43c6-8378-439739951d36)
+
 
 ### 3.2 User Interface
 __This part is yet to be implemented.__
